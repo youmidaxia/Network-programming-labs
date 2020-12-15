@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <title>Index</title>
+</head>
+<body>
+  <form action="/callback" id="the-form">
+    <label for="my-text">Input some text: </label>
+    <input type="text" name="my-text" id="my-text">
+    <input type="submit" value="Submit">
+  </form>
+  <p>Num of words 5 letters or greater: <span id="result"></span></p>
+
+  <script>
+    $("#the-form").submit(function(e) {
+      e.preventDefault();
+      var form = $(this);
+      var url = form.attr('action');
+
+      $.ajax({
+        type: "POST",
+        url: url,
+        data: form.serialize(),
+        success: function( result ) {
+          $( "#result" ).html( "<strong>" + result + "</strong>" );
+        }
+      });
+    });
+  </script>
+</body>
+</html>
